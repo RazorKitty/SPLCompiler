@@ -5,13 +5,18 @@
 #define RETURN(argtype, token) return(token)
 #endif
 
+#include <string.h>
+#include <string.h>
+extern SYMTABNODEPTR symTab[SYMTABSIZE];
+extern int currentSymTabSize;
+int installId(char*);
 %}
 
 delim       [ \t\n\r]
 ws          {delim}+
 letter      [A-Za-z]
-digit       [0-9]
 
+digit                [0-1]+
 integer_constant     [0-9]+
 real_constant        [0-9]+\.[0-9]+
 character_constant   '[a-zA-Z]'
@@ -69,6 +74,9 @@ OR                      RETURN(keyword, OR);
 {identifer}             { 
                             /*yylval.item.identifer = malloc(strlen(yytext));
                             strcpy(yytext, yylval.item.identifer);*/
+                            #ifndef
+                                                            
+                            #endif
                             RETURN(identifier, IDENTIFIER);
                         }
 
@@ -88,4 +96,40 @@ OR                      RETURN(keyword, OR);
                             RETURN(integer_constant, INTEGER_CONSTANT);
                         }
                         
+%%
 
+SYMTABNODEPTR newSymTabNode() {
+    return ((SYMTABNODEPTR)malloc(sizeof(SYMTABNODE)));
+}
+
+int lookup(char *s) {
+    extern SYMTABNODEPTR symTab[SYMTABSIZE];
+    extern int currentSymTabSize;
+    int i;
+    for (i = 0; i < currentSymTabSize; ++i) {
+        if (strncpy(s, symTab[i]->identifier, IDLENGTH) == 0) {
+            return(i);
+        }
+    }
+    return(-1);
+}
+
+int installId(char* id) {
+    extern SYMTABNODEPTR symTab[SYMTABSIZE];
+    extern int currentSymTabSize;
+    int index;
+
+    index = lookup(id);
+    if (index >= 0) {
+        return(index);
+    }
+    else if (currentSymTabSize >= SYMTABSIZE) {
+        return (NOTHING);
+    }
+    else {
+        symTab[currentSymTabSize] = newSymTabNode();
+        strncpy(symTab[currentSymTabSize]->identifier, id, IDLENGTH);
+        symTab[currentSymTabSize]->identifier[IDLENGTH -1] = '\0';
+        return(currentSymTabSize++);
+    }
+}
