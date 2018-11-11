@@ -1,6 +1,12 @@
 #include <stdio.h>
 
-int yyparse(void);
+extern int yyparse(void);
+
+#if YYDEBUG
+    extern int yydebug;
+    yydebug = 1;
+    
+#endif
 
 int main(void)
 {

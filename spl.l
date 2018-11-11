@@ -1,4 +1,4 @@
-%{
+%{ 
 #ifdef PRINT
 #define RETURN(argtype, token) printf(#argtype " " #token "\n");
 #else
@@ -6,22 +6,47 @@
 #endif
 
 #include <string.h>
-#include <string.h>
+/*
+#include "spl.tab.c"
+
+
 extern SYMTABNODEPTR symTab[SYMTABSIZE];
 extern int currentSymTabSize;
 int installId(char*);
+*/
+
+int installId(char*);
+/*
+struct symTabNode {
+    char* symbol;
+    struct symTabNode* prev;
+    struct symTabNode* next;
+};
+typedef struct symTabNode SYMTABNODE;
+typedef SYMTABNODE* SYMTABNODEPTR;
+
+struct symbolTable {
+    SYMTABNODEPTR head;
+    SYMTABNODEPTR tail;
+    int length;
+};
+typedef struct symbolTable SYMBOLTABLE;
+typedef SYMBOLTABLE* SYMBOLTABLEPTR;
+*/
+
+#ifndef PRINT
+    extern SYMBOLTABLEPTR symbol_table;
+#endif
 %}
 
 delim       [ \t\n\r]
 ws          {delim}+
-letter      [A-Za-z]
 
-digit                [0-1]+
 integer_constant     [0-9]+
 real_constant        [0-9]+\.[0-9]+
 character_constant   '[a-zA-Z]'
 
-identifer           {letter}({letter}|{digit})*
+identifer           [a-zA-Z][a-zA-Z0-9]*
 
 %%
 
@@ -72,64 +97,43 @@ AND                     RETURN(keyword, AND);
 OR                      RETURN(keyword, OR);
 
 {identifer}             { 
-                            /*yylval.item.identifer = malloc(strlen(yytext));
-                            strcpy(yytext, yylval.item.identifer);*/
-                            #ifndef
-                                                            
+                            #ifndef PRINT
+                                yylval.iVal = installId(yytext);
                             #endif
                             RETURN(identifier, IDENTIFIER);
                         }
 
 
 {character_constant}    {
-                            /*yylval.item.character = yytext;*/
+                            #ifndef PRINT
+                                yylval.iVal = installId(yytext);
+                            #endif
                             RETURN(character_constant,CHARACTER_CONSTANT);
                         }   
 
 {real_constant}         {
-                            /*yylval.item.real = atof(yytext); //d = atof(yytext);*/
+                            #ifndef PRINT
+                                yylval.iVal = installId(yytext);
+                            #endif
                             RETURN(real_constant, REAL_CONSTANT);
                         }
 
 {integer_constant}      {
-                            /*yylval.item.integer = atoi(yytext);*/
+                            #ifndef PRINT
+                                yylval.iVal = installId(yytext);
+                            #endif
                             RETURN(integer_constant, INTEGER_CONSTANT);
                         }
                         
 %%
-
-SYMTABNODEPTR newSymTabNode() {
-    return ((SYMTABNODEPTR)malloc(sizeof(SYMTABNODE)));
-}
-
-int lookup(char *s) {
-    extern SYMTABNODEPTR symTab[SYMTABSIZE];
-    extern int currentSymTabSize;
-    int i;
-    for (i = 0; i < currentSymTabSize; ++i) {
-        if (strncpy(s, symTab[i]->identifier, IDLENGTH) == 0) {
-            return(i);
+#ifndef PRINT
+    int installId(char* sym) {
+        extern SYMBOLTABLEPTR symbol_table;
+        if (!symbol_table) {
+            symbol_table = create_symbolTable();
         }
+        int index = symbolTable_get_index_of_node(symbol_table, sym);
+        return (index > -1) ? index : symbolTable_add_node(symbol_table, sym);
     }
-    return(-1);
-}
+#endif
 
-int installId(char* id) {
-    extern SYMTABNODEPTR symTab[SYMTABSIZE];
-    extern int currentSymTabSize;
-    int index;
-
-    index = lookup(id);
-    if (index >= 0) {
-        return(index);
-    }
-    else if (currentSymTabSize >= SYMTABSIZE) {
-        return (NOTHING);
-    }
-    else {
-        symTab[currentSymTabSize] = newSymTabNode();
-        strncpy(symTab[currentSymTabSize]->identifier, id, IDLENGTH);
-        symTab[currentSymTabSize]->identifier[IDLENGTH -1] = '\0';
-        return(currentSymTabSize++);
-    }
-}
