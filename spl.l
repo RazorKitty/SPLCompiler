@@ -51,56 +51,56 @@ identifer           [a-zA-Z][a-zA-Z0-9]*
 %%
 
 {ws}                    ;/* ignore white space */
-"<>"                    RETURN(binary_operator, NOT_EQUAL);
-"<="                    RETURN(binary_operator, LESS_OR_EQUAL);
-">="                    RETURN(binary_operator, GREATER_OR_EQUAL);
-"="                     RETURN(binary_operator, EQUAL);
-"<"                     RETURN(binary_operator, LESS_THAN);
-">"                     RETURN(binary_operator, GREATER_THAN);
-"+"                     RETURN(binary_operator, ADD);
-"-"                     RETURN(binary_operator, SUBTRACT);
-"*"                     RETURN(binary_operator, MULTIPLY);
-"/"                     RETURN(binary_operator, DIVIDE);
-":"                     RETURN(seperator, COLON);
-ENDP                    RETURN(keyword, ENDP);
-"."                     RETURN(seperator, PERIOD);
-DECLARATIONS            RETURN(keyword, DECLARATIONS);
-CODE                    RETURN(keyword, CODE);
-","                     RETURN(seperator, COMMA);
-OF                      RETURN(keyword, OF);
-TYPE                    RETURN(keyword, TYPE);
-";"                     RETURN(seperator,  SEMICOLON);
-CHARACTER               RETURN(type, CHARACTER);
-INTEGER                 RETURN(type, INTEGER);
-REAL                    RETURN(type, REAL);
-"->"                    RETURN(binary_operator, ASSIGN);
-IF                      RETURN(keyword, IF);
-THEN                    RETURN(keyword, THEN);
-ELSE                    RETURN(keyword, ELSE);
-ENDIF                   RETURN(keyword, ENDIF);
-DO                      RETURN(keyword, DO);
-WHILE                   RETURN(keyword, WHILE);
-ENDDO                   RETURN(keyword, ENDDO);
-ENDWHILE                RETURN(keyword, ENDWHILE);
-FOR                     RETURN(keyword, FOR);
-IS                      RETURN(keyword, IS);
-BY                      RETURN(keyword, BY);
-TO                      RETURN(keyword, TO);
-ENDFOR                  RETURN(keyword, ENDFOR);
-WRITE                   RETURN(keyword, WRITE);
-"("                     RETURN(braket, OPEN_BRAKET);
-")"                     RETURN(braket, CLOSE_BRAKET);
-NEWLINE                 RETURN(keyword, NEWLINE);
-READ                    RETURN(keyword, READ);
-NOT                     RETURN(keyword, NOT);
-AND                     RETURN(keyword, AND);
-OR                      RETURN(keyword, OR);
+"<>"                    RETURN(binary_operator, NOT_EQUAL_T);
+"<="                    RETURN(binary_operator, LESS_OR_EQUAL_T);
+">="                    RETURN(binary_operator, GREATER_OR_EQUAL_T);
+"="                     RETURN(binary_operator, EQUAL_T);
+"<"                     RETURN(binary_operator, LESS_THAN_T);
+">"                     RETURN(binary_operator, GREATER_THAN_T);
+"+"                     RETURN(binary_operator, ADD_T);
+"-"                     RETURN(binary_operator, SUBTRACT_T);
+"*"                     RETURN(binary_operator, MULTIPLY_T);
+"/"                     RETURN(binary_operator, DIVIDE_T);
+":"                     RETURN(seperator, COLON_T);
+ENDP                    RETURN(keyword, ENDP_T);
+"."                     RETURN(seperator, PERIOD_T);
+DECLARATIONS            RETURN(keyword, DECLARATIONS_T);
+CODE                    RETURN(keyword, CODE_T);
+","                     RETURN(seperator, COMMA_T);
+OF                      RETURN(keyword, OF_T);
+TYPE                    RETURN(keyword, TYPE_T);
+";"                     RETURN(seperator,  SEMICOLON_T);
+CHARACTER               RETURN(type, CHARACTER_T);
+INTEGER                 RETURN(type, INTEGER_T);
+REAL                    RETURN(type, REAL_T);
+"->"                    RETURN(binary_operator, ASSIGN_T);
+IF                      RETURN(keyword, IF_T);
+THEN                    RETURN(keyword, THEN_T);
+ELSE                    RETURN(keyword, ELSE_T);
+ENDIF                   RETURN(keyword, ENDIF_T);
+DO                      RETURN(keyword, DO_T);
+WHILE                   RETURN(keyword, WHILE_T);
+ENDDO                   RETURN(keyword, ENDDO_T);
+ENDWHILE                RETURN(keyword, ENDWHILE_T);
+FOR                     RETURN(keyword, FOR_T);
+IS                      RETURN(keyword, IS_T);
+BY                      RETURN(keyword, BY_T);
+TO                      RETURN(keyword, TO_T);
+ENDFOR                  RETURN(keyword, ENDFOR_T);
+WRITE                   RETURN(keyword, WRITE_T);
+"("                     RETURN(braket, OPEN_BRAKET_T);
+")"                     RETURN(braket, CLOSE_BRAKET_T);
+NEWLINE                 RETURN(keyword, NEWLINE_T);
+READ                    RETURN(keyword, READ_T);
+NOT                     RETURN(keyword, NOT_T);
+AND                     RETURN(keyword, AND_T);
+OR                      RETURN(keyword, OR_T);
 
 {identifer}             { 
                             #ifndef PRINT
                                 yylval.iVal = installId(yytext);
                             #endif
-                            RETURN(identifier, IDENTIFIER);
+                            RETURN(identifier, IDENTIFIER_T);
                         }
 
 
@@ -108,21 +108,21 @@ OR                      RETURN(keyword, OR);
                             #ifndef PRINT
                                 yylval.iVal = installId(yytext);
                             #endif
-                            RETURN(character_constant,CHARACTER_CONSTANT);
+                            RETURN(character_constant,CHARACTER_CONSTANT_T);
                         }   
 
 {real_constant}         {
                             #ifndef PRINT
                                 yylval.iVal = installId(yytext);
                             #endif
-                            RETURN(real_constant, REAL_CONSTANT);
+                            RETURN(real_constant, REAL_CONSTANT_T);
                         }
 
 {integer_constant}      {
                             #ifndef PRINT
                                 yylval.iVal = installId(yytext);
                             #endif
-                            RETURN(integer_constant, INTEGER_CONSTANT);
+                            RETURN(integer_constant, INTEGER_CONSTANT_T);
                         }
                         
 %%

@@ -3,9 +3,8 @@
 extern int yyparse(void);
 
 #if YYDEBUG
-    extern int yydebug;
-    yydebug = 1;
-    
+    int yydebug = 1;
+
 #endif
 
 int main(void)
