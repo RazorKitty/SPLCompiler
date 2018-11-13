@@ -15,7 +15,7 @@ extern int currentSymTabSize;
 int installId(char*);
 */
 
-int installId(char*);
+int installId(char*, int);
 /*
 struct symTabNode {
     char* symbol;
@@ -98,7 +98,7 @@ OR                      RETURN(keyword, OR_T);
 
 {identifer}             { 
                             #ifndef PRINT
-                                yylval.iVal = installId(yytext);
+                                yylval.iVal = installId(yytext, NOTHING);
                             #endif
                             RETURN(identifier, IDENTIFIER_T);
                         }
@@ -106,34 +106,34 @@ OR                      RETURN(keyword, OR_T);
 
 {character_constant}    {
                             #ifndef PRINT
-                                yylval.iVal = installId(yytext);
+                                yylval.iVal = installId(yytext, CHARACTER);
                             #endif
                             RETURN(character_constant,CHARACTER_CONSTANT_T);
                         }   
 
 {real_constant}         {
                             #ifndef PRINT
-                                yylval.iVal = installId(yytext);
+                                yylval.iVal = installId(yytext, REAL);
                             #endif
                             RETURN(real_constant, REAL_CONSTANT_T);
                         }
 
 {integer_constant}      {
                             #ifndef PRINT
-                                yylval.iVal = installId(yytext);
+                                yylval.iVal = installId(yytext, INTEGER);
                             #endif
                             RETURN(integer_constant, INTEGER_CONSTANT_T);
                         }
                         
 %%
 #ifndef PRINT
-    int installId(char* sym) {
+    int installId(char* sym, int type) {
         extern SYMBOLTABLEPTR symbol_table;
         if (!symbol_table) {
             symbol_table = create_symbolTable();
         }
         int index = symbolTable_get_index_of_node(symbol_table, sym);
-        return (index > -1) ? index : symbolTable_add_node(symbol_table, sym);
+        return (index > -1) ? index : symbolTable_add_node(symbol_table, sym, type);
     }
 #endif
 

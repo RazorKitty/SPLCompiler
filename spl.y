@@ -96,13 +96,13 @@ typedef struct symbolTable SYMBOLTABLE;
 typedef SYMBOLTABLE* SYMBOLTABLEPTR;
 
 /* create a symbol table node */
-SYMTABNODEPTR create_symTabNode(char*);
+SYMTABNODEPTR create_symTabNode(char*, int);
 
 /* create a symbolTable table */
 SYMBOLTABLEPTR create_symbolTable(void);
 
 /* add a node to the table */
-int symbolTable_add_node(SYMBOLTABLEPTR, char*);
+int symbolTable_add_node(SYMBOLTABLEPTR, char*, int);
 
 /* get the node at a given index */
 SYMTABNODEPTR symbolTable_get_node_for_index(SYMBOLTABLEPTR, int);
@@ -424,11 +424,11 @@ constant                : SUBTRACT_T REAL_CONSTANT_T
 %%
 
 /* create a symbol table node */
-SYMTABNODEPTR create_symTabNode(char* sym) {
+SYMTABNODEPTR create_symTabNode(char* sym, int type) {
     SYMTABNODEPTR node = (SYMTABNODEPTR)malloc(sizeof(SYMTABNODE));
     node->symbol = (char*)malloc(strlen(sym));
     strcpy(node->symbol, sym);
-    node->type = 0;
+    node->type = type;
     node->prev = NULL;
     node->next = NULL;
     return node;
@@ -444,8 +444,8 @@ SYMBOLTABLEPTR create_symbolTable(void) {
 }
 
 /* add a node to the table */
-int symbolTable_add_node(SYMBOLTABLEPTR table, char* sym) {
-    SYMTABNODEPTR new_node = create_symTabNode(sym);
+int symbolTable_add_node(SYMBOLTABLEPTR table, char* sym, int type) {
+    SYMTABNODEPTR new_node = create_symTabNode(sym, type);
     if (table->head == NULL) {
         table->head = table->tail = new_node;
     }
@@ -636,156 +636,6 @@ void printTree(TERNARY_TREE tree, int depth) {
     }
 }
 
-void genCode(TERNARY_TREE tree, int* datum) {
-    if(!tree) {
-        return;
-    }
-    SYMTABNODEPTR node = symbolTable_get_node_for_index(symbol_table, tree->item);
-    switch(tree->nodeIdentifier) {
-        case(PROGRAM):
-            printf("#include<stdio.h>\nint main(int argc, char** argv) {\n",node->symbol);
-            genCode(tree->first, datum);
-            printf("}\n");
-        break;
-        case(BLOCK):
-            genCode(tree->first, datum);
-            genCode(tree->second, datum);
-        break;
-        case(DECLARATION):
-            genCode(tree->second, datum);
-            genCode(tree->first, datum);
-            printf(";\n");
-            datum = NULL;
-            genCode(tree->third, datum);
-        break;
-        case(IDENTIFIER_DECLARATION):
-            printf("%s", node->symbol);
-            node->type = datum;
-            if (tree->first) {
-                printf(", ");
-                genCode(tree->first, datum);
-            }
-        break;
-        case(CHARACTER):
-            printf("char ");
-            *datum = CHARACTER;
-        break;
-        case(INTEGER):
-            printf("int ");
-            *datum = INTEGER;
-        break;
-        case(REAL):
-            printf("double ");
-            *datum = REAL;
-        break;
-        case(STATEMENT_LIST):
-            genCode(tree->first, datum);
-            printf(";\n");
-            genCode(tree->second, datum);
-        break;
-        case(ASSIGNMENT_STATEMENT):
-            printf("%s = ", node->symbol);
-            genCode(tree->first, datum);
-        break;
-        case(IF_STATEMENT):
-            printf("if (");
-            genCode(tree->first, datum);
-            printf(") {\n");
-            genCode(tree->second, datum);
-            printf("}");
-            if (tree->third) {
-                printf(" else {\n");
-                genCode(tree->third, datum);
-                printf("}\n");
-            }
-        break;
-        case(DO_STATEMENT):
-            printf("do {\n");
-            genCode(tree->first, datum);
-            printf("}\n while (");
-            genCode(tree->second, datum);
-            printf("}\n");
-        break;
-        case(WHILE_STATEMENT):
-            printf("while (");
-            genCode(tree->first, datum);
-            printf(") {\n");
-            genCode(tree->second, datum);
-            printf("}\n");
-        break;
-        case(FOR_STATEMENT):
-            printf("for (");
-            genCode(tree->first, datum);
-            printf(") {\n");
-            genCode(tree->second, datum);
-            printf("}\n");
-        break;
-        case(FOR_LOOP):
-            printf("%s = ", node->symbol);
-            genCode(tree->first, datum);
-            printf("; ");
-            genCode(tree->third, datum);
-            printf("; ");
-            genCode(tree->second, datum);
-        break;
-        case(WRITE_STATEMENT):
-        break;
-        case(READ_STATEMENT):
-        break;
-        case(OUTPUT_LIST):
-        break;
-        case(COMPARISION):
-        break;
-        case(NOT):
-        break;
-        case(CONDITONAL):
-        break;
-        case(AND):
-        break;
-        case(OR):
-        break;
-        case(COMPARITOR):
-        break;
-        case(EQUAL):
-        break;
-        case(NOT_EQUAL):
-        break;
-        case(LESS_THAN):
-        break;
-        case(GREATER_THAN):
-        break;
-        case(LESS_OR_EQUAL):
-        break;
-        case(GREATER_OR_EQUAL):
-        break;
-        case(ADD):
-        break;
-        case(SUBTRACT):
-        break;
-        case(TERM):
-        break;
-        case(MULTIPLY):
-        break;
-        case(DIVIDE):
-        break;
-        case(VALUE):
-        break;
-        case(CONSTANT):
-        break;
-        case(EXPRESSION):
-        break;
-        case(NEGATIVE_REAL_CONSTANT):
-        break;
-        case(POSITIVE_REAL_CONSTANT):
-        break;
-        case(NEGATIVE_INTEGER_CONSTANT):
-        break;
-        case(POSITIVE_INTEGER_CONSTANT):
-        break;
-        case(CHARACTER_CONSTANT):
-        break;
-    }
-}
 */
 
 int declareType(TERNARY_TREE tree) {
@@ -820,7 +670,53 @@ void declareIdentifiers(TERNARY_TREE tree, int t) {
     }
 }
 
-void genWriteStat(TERNARY_TREE tree);
+void genPrintFormat(TERNARY_TREE tree) {
+    if (!tree) {
+        return;
+    }
+    SYMTABNODEPTR node = symbolTable_get_node_for_index(symbol_table, tree->item);
+    switch(tree->nodeIdentifier) {
+        case (OUTPUT_LIST):
+           genPrintFormat(tree->first);
+            if (tree->second) {
+                genPrintFormat(tree->second);
+            }
+        break;
+        case (IDENTIFIER):
+            if (node->type == CHARACTER) {
+                printf("%%c");
+            } else if (node->type == REAL) {
+                printf("%%f");
+            } else if (node->type == INTEGER) {
+                printf("%%d");
+            }
+        break;
+        case (CONSTANT):
+            genPrintFormat(tree->first);
+        break;
+        case (NEGATIVE_REAL_CONSTANT):
+            printf("%%f");
+        break;
+        case (POSITIVE_REAL_CONSTANT):
+            printf("%%f");
+        break;
+        case (NEGATIVE_INTEGER_CONSTANT):
+            printf("%%d");
+        break;
+        case (POSITIVE_INTEGER_CONSTANT):
+            printf("%%d");
+        break;
+        case (CHARACTER_CONSTANT):
+            printf("%%c");
+        break;
+        case (EXPRESSION):
+        break;
+    }
+}
+
+void genOutputList(TERNARY_TREE tree) {
+    
+}
 
 void genCode(TERNARY_TREE tree) {
     if (!tree) {
@@ -830,7 +726,7 @@ void genCode(TERNARY_TREE tree) {
     int t;
     switch (tree->nodeIdentifier) {
         case (PROGRAM):
-            printf("#include<stdio.h>\n//%s\nint main() {\n", node->symbol);
+            printf("#include<stdio.h>\n/*%s*/\nint main() {\n", node->symbol);
             genCode(tree->first);
             printf("}\n");
         break;
@@ -870,7 +766,7 @@ void genCode(TERNARY_TREE tree) {
         case (DO_STATEMENT):
             printf("do {\n");
             genCode(tree->first);
-            printf("} while (");
+            printf("} while (\n");
             genCode(tree->second);
             printf(")");
         break;
@@ -898,25 +794,33 @@ void genCode(TERNARY_TREE tree) {
         break;
         case (NOT):
             printf("!");
+            printf("(");
             genCode(tree->first);
+            printf(")");
         break;
         case (CONDITONAL):
             genCode(tree->first);
         break;
         case (AND):
+            printf("(");
             genCode(tree->first);
             printf(" && ");
             genCode(tree->second);
+            printf(")");
         break;
         case (OR):
+            printf("(");
             genCode(tree->first);
             printf(" || ");
             genCode(tree->second);
+            printf(")");
         break;
         case (COMPARISION):
+            printf("(");
             genCode(tree->first);
             genCode(tree->second);
             genCode(tree->third);
+            printf(")");
         break;
         case (EQUAL):
             printf(" == ");
@@ -937,33 +841,45 @@ void genCode(TERNARY_TREE tree) {
             printf(" >= ");
         break;
         case (ADD):
+            printf("(");
             genCode(tree->first);
             printf(" + ");
             genCode(tree->second);
+            printf(")");
         break; 
         case (SUBTRACT):
+            printf("(");
             genCode(tree->first);
             printf(" - ");
             genCode(tree->second);
+            printf(")");
         break;
         case (TERM):
             genCode(tree->first);
         break;
         case (MULTIPLY):
+            printf("(");
             genCode(tree->first);
             printf(" * ");
             genCode(tree->second);
+            printf(")");
         break; 
         case (DIVIDE):
+            printf("(");
             genCode(tree->first);
             printf(" / ");
             genCode(tree->second);
+            printf(")");
         break;
         case (VALUE):
             genCode(tree->first);
         break;
         case (IDENTIFIER):
             printf("%s", node->symbol);
+            if (tree->first) {
+                printf(", ");
+                genCode(tree->first);
+            }
         break;
         case (CONSTANT):
             genCode(tree->first);
@@ -989,11 +905,33 @@ void genCode(TERNARY_TREE tree) {
             printf("%s", node->symbol);
         break;
         case (WRITE_STATEMENT):
+            printf("printf(\"");
             if(tree->first) {
-                
+                genPrintFormat(tree->first);
+                printf("\", ");
+                genCode(tree->first);
             } else {
-                printf("printf(\"\\n\")");
+                printf("\\n\"");
             }
+            printf(")");
+        break;
+        case (OUTPUT_LIST):
+            genCode(tree->first);
+            if (tree->second) {
+                printf(", ");
+                genCode(tree->second);
+            }
+        break;
+        case (READ_STATEMENT):
+            printf("scanf(\"");
+            if (node->type == CHARACTER) {
+                printf("%%*c%%c");
+            } else if (node->type == REAL) {
+                printf("%%lf");
+            } else if (node->type == INTEGER) {
+                printf("%%d");
+            }
+            printf("\", &%s)", node->symbol);
         break;
     }
 }
