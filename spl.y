@@ -616,7 +616,7 @@ void genCode(TERNARY_TREE tree) {
     int t;
     switch (tree->nodeIdentifier) {
         case (PROGRAM):
-            printf("#include<stdio.h>\n/*%s*/\nint main() {\n", node->symbol);
+            printf("#include<stdio.h>\n/*%s*/\nint _by;\nint main() {\n", node->symbol);
             genCode(tree->first);
             printf("}\n");
         break;
@@ -677,10 +677,11 @@ void genCode(TERNARY_TREE tree) {
         case (FOR_LOOP):
             printf("%s = ", node->symbol);
             genCode(tree->first);
-            printf("; %s != ", node->symbol);
-            genCode(tree->third);
-            printf("; %s += ", node->symbol);
+            printf("; _by =(");
             genCode(tree->second);
+            printf("), (%s-(", node->symbol);
+            genCode(tree->third);
+            printf("))*((_by > 0) - (_by < 0)) <= 0; %s += _by", node->symbol, node->symbol);
         break;
         case (NOT):
             printf("!");
