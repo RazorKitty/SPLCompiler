@@ -3,6 +3,7 @@
 extern int yyparse(void);
 
 #if YYDEBUG
+    extern int yydebug;
     int yydebug = 1;
 
 #endif
