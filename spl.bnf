@@ -3,7 +3,8 @@
 <block>                 ::= "DECLARATIONS" <declaration_block> "CODE" <statement_list>
                         | "CODE" <statement_list>
 
-<declaration_block>     ::= <identifier_list> "OF" "TYPE" <type> ";"
+<declaration_block>     ::= <identifier_list> "OF" "TYPE" <type> ";" <declaration_block>
+                        | <identifier_list> "OF" "TYPE" <type> ";"
 
 <identifier_list>       ::= <identifier>
                         | <identifier> "," <identifier_list>
@@ -32,7 +33,9 @@
 
 <while_statement>       ::= "WHILE" <conditional> "DO" <statement_list> "ENDWHILE"
 
-<for_statement>         ::= "FOR" <identifier> "IS" <expression> "BY" <expression> "TO" <expression> "DO" <statement_list> "ENDFOR"
+<for_statement>         ::= "FOR" <for_loop> <statement_list> "ENDFOR"
+
+<for_loop>              ::= <identifier> "IS" <expression> "BY" <expression> "TO" <expression> "DO"
 
 <write_statement>       ::= "WRITE" "(" <output_list> ")"
                         | "NEWLINE"
@@ -46,8 +49,8 @@
 
 <conditional>           ::= "NOT" <conditional>
                         | <comparison>
-                        | <conditional> "AND" <comparison>
-                        | <conditional> "OR" <comparison>
+                        | <comparison> "AND" <conditional>
+                        | <comparison> "OR" <conditional>
 
 <comparator>            ::= "="
                         | "<>"
@@ -56,27 +59,29 @@
                         | "<="
                         | ">="
 
-<expression>            ::= <term> "+"
-                        | <term> "-"
+<expression>            ::= <expression> "+" <term>
+                        | <expression> "-" <term>
                         | <term>
 
-<term>                  ::= <value> "*"
-                        | <value> "/"
+<term>                  ::= <term> "*" <value>
+                        | <term> "/" <value>
                         | <value>
 
 <value>                 ::= <identifier>
                         | <constant>
                         | "(" <expression> ")"
 
-<constant>              ::= <number_constant>
+<constant>              ::= <real_constant>
+                        | <integer_constant>
                         | <character_constant>
 
 <character_constant>    ::= "'" <character> "'"
 
-<number_constant>       ::= <number> 
-                        | "-" <number>
-                        | <number> "." <number>
+<real_constant>         ::= <number> "." <number>
                         | "-" <number> "." <number>
+
+<integer_constant>      ::= <number>
+                        | "-" <number>
 
 <number>                ::= <digit>
                         | <digit> <number>

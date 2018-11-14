@@ -151,13 +151,13 @@ program                 : IDENTIFIER_T COLON_T block ENDP_T IDENTIFIER_T PERIOD_
                         ;
 
 
-block                   : CODE_T statement_list
-                        {
-                            $$ = create_node(NOTHING, BLOCK, $2, NULL, NULL);
-                        }
-                        |DECLARATIONS_T declaration_block CODE_T statement_list
+block                   : DECLARATIONS_T declaration_block CODE_T statement_list
                         {
                             $$ = create_node(NOTHING, BLOCK, $2, $4, NULL);
+                        }
+                        | CODE_T statement_list
+                        {
+                            $$ = create_node(NOTHING, BLOCK, $2, NULL, NULL);
                         }
                         ;
 
