@@ -45,3 +45,12 @@ during code generation when the compiler find a write statement it will look ahe
 will evaluate to printf("%c%c%c%c%c%d%lf",'H','E','L','L','O',42,3.14);
 it also supports this look ahead functionality for evaluating the type returned by an expression.
 
+*****************
+*  C key words  *
+*****************
+the compiler supports using keywords from the C language as identifiers (as long as they are not also not key words in SPL)
+
+*********************
+*  Type converison  *
+*********************
+the compiler follows the same rules as C for type coversion, this is convention for most programming languages and it seems fit follow this rule.
