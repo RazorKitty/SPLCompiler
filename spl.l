@@ -98,12 +98,7 @@ OR                      RETURN(keyword, OR_T);
 
 {identifer}             { 
                             #ifndef PRINT
-                                char* c = (char*)malloc(strlen(yytext)+2);
-                                strcpy(c,yytext);
-                                char* i = c + strlen(yytext);
-                                char* a = "_\0";
-                                strcpy(i,a);
-                                yylval.iVal = installId(c, NOTHING);
+                                yylval.iVal = installId(yytext, NOTHING);
                             #endif
                             RETURN(identifier, IDENTIFIER_T);
                         }
@@ -111,7 +106,7 @@ OR                      RETURN(keyword, OR_T);
 
 {character_constant}    {
                             #ifndef PRINT
-                            yylval.iVal = installId(yytext, CHARACTER);
+                                yylval.iVal = installId(yytext, CHARACTER);
                             #endif
                             RETURN(character_constant,CHARACTER_CONSTANT_T);
                         }   

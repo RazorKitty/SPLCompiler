@@ -494,7 +494,7 @@ TERNARY_TREE create_node(int ival, int case_identifier, TERNARY_TREE p1, TERNARY
 
 int declareType(TERNARY_TREE tree) {
     if (!tree) {
-        return;
+        return NOTHING;
     }
     SYMTABNODEPTR node = symbolTable_get_node_for_index(symbol_table, tree->item);
     switch(tree->nodeIdentifier) {
@@ -517,7 +517,7 @@ void declareIdentifiers(TERNARY_TREE tree, int t) {
     }
     SYMTABNODEPTR node = symbolTable_get_node_for_index(symbol_table, tree->item);
     node->type = t;
-    printf("%s", node->symbol);
+    printf("%s_", node->symbol);
     if (tree->first) {
         printf(", ");
         declareIdentifiers(tree->first, t);
@@ -639,7 +639,7 @@ void genCode(TERNARY_TREE tree) {
             printf(";\n");
         break;
         case (ASSIGNMENT_STATEMENT):
-            printf("%s = ", node->symbol);
+            printf("%s_ = ", node->symbol);
             genCode(tree->first);
         break;
         case (IF_STATEMENT):
@@ -675,13 +675,13 @@ void genCode(TERNARY_TREE tree) {
             printf("}");
         break;
         case (FOR_LOOP):
-            printf("%s = ", node->symbol);
+            printf("%s_ = ", node->symbol);
             genCode(tree->first);
             printf("; _Hey_Brian_ =(");
             genCode(tree->second);
-            printf("), (%s-(", node->symbol);
+            printf("), (%s_-(", node->symbol);
             genCode(tree->third);
-            printf("))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; %s += _Hey_Brian_", node->symbol, node->symbol);
+            printf("))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; %s_ += _Hey_Brian_", node->symbol, node->symbol);
         break;
         case (NOT):
             printf("!");
@@ -766,7 +766,7 @@ void genCode(TERNARY_TREE tree) {
             genCode(tree->first);
         break;
         case (IDENTIFIER):
-            printf("%s", node->symbol);
+            printf("%s_", node->symbol);
             if (tree->first) {
                 printf(", ");
                 genCode(tree->first);
@@ -822,7 +822,7 @@ void genCode(TERNARY_TREE tree) {
             } else if (node->type == INTEGER) {
                 printf(" %%d");
             }
-            printf("\", &%s)", node->symbol);
+            printf("\", &%s_)", node->symbol);
         break;
     }
 }
