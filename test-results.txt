@@ -7,7 +7,7 @@
 -- Output --------------------------------
 --14-11-2018-----------------------------------------------------
 Lexical Tokens for a.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 identifier IDENTIFIER_T
 seperator COLON_T
 keyword CODE_T
@@ -30,7 +30,7 @@ identifier IDENTIFIER_T
 seperator PERIOD_T
 --14-11-2018-----------------------------------------------------
 Lexical Tokens for b.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 identifier IDENTIFIER_T
 seperator COLON_T
 keyword DECLARATIONS_T
@@ -116,7 +116,7 @@ identifier IDENTIFIER_T
 seperator PERIOD_T
 --14-11-2018-----------------------------------------------------
 Lexical Tokens for c.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 identifier IDENTIFIER_T
 seperator COLON_T
 keyword DECLARATIONS_T
@@ -211,7 +211,7 @@ identifier IDENTIFIER_T
 seperator PERIOD_T
 --14-11-2018-----------------------------------------------------
 Lexical Tokens for d.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 identifier IDENTIFIER_T
 seperator COLON_T
 keyword DECLARATIONS_T
@@ -272,7 +272,7 @@ identifier IDENTIFIER_T
 seperator PERIOD_T
 --14-11-2018-----------------------------------------------------
 Lexical Tokens for e.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 identifier IDENTIFIER_T
 seperator COLON_T
 keyword DECLARATIONS_T
@@ -387,7 +387,7 @@ identifier IDENTIFIER_T
 seperator PERIOD_T
 --14-11-2018-----------------------------------------------------
 Parse debug output for a.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 Starting parse
 Entering state 0
 Reading a token: Next token is token IDENTIFIER_T ()
@@ -561,7 +561,7 @@ Reducing stack by rule 12 (line 206):
 -> $$ = nterm statement_list ()
 Stack now 0 1 3 6
 Entering state 24
-Reducing stack by rule 2 (line 154):
+Reducing stack by rule 3 (line 158):
    $1 = token CODE_T ()
    $2 = nterm statement_list ()
 -> $$ = nterm block ()
@@ -593,7 +593,7 @@ Stack now 0 2 4
 Cleanup: popping token $end ()
 Cleanup: popping nterm program ()
 #include<stdio.h>
-/*ProgA*/
+/*ProgA_*/
 int _Hey_Brian_;
 int main() {
 printf("%c%c%c%c%c", 'h', 'e', 'l', 'l', 'o');
@@ -601,7 +601,7 @@ printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 Parse debug output for b.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 Starting parse
 Entering state 0
 Reading a token: Next token is token IDENTIFIER_T ()
@@ -1306,7 +1306,7 @@ Reducing stack by rule 12 (line 206):
 -> $$ = nterm statement_list ()
 Stack now 0 1 3 5 9 38
 Entering state 61
-Reducing stack by rule 3 (line 158):
+Reducing stack by rule 2 (line 154):
    $1 = token DECLARATIONS_T ()
    $2 = nterm declaration_block ()
    $3 = token CODE_T ()
@@ -1340,31 +1340,31 @@ Stack now 0 2 4
 Cleanup: popping token $end ()
 Cleanup: popping nterm program ()
 #include<stdio.h>
-/*ProgB*/
+/*ProgB_*/
 int _Hey_Brian_;
 int main() {
-int b, a;
-char c;
-double e, d;
-scanf(" %d", &a);
-scanf(" %d", &b);
-if ((a > b)) {
+int b_, a_;
+char c_;
+double e_, d_;
+scanf(" %d", &a_);
+scanf(" %d", &b_);
+if ((a_ > b_)) {
 printf("%c", 'A');
 } else {
 printf("%c", 'B');
 };
 printf("\n");
-scanf(" %lf", &d);
-e = (d * 2.3);
-printf("%lf", e);
+scanf(" %lf", &d_);
+e_ = (d_ * 2.3);
+printf("%lf", e_);
 printf("\n");
-scanf(" %c", &c);
-printf("%c", c);
+scanf(" %c", &c_);
+printf("%c", c_);
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 Parse debug output for c.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 Starting parse
 Entering state 0
 Reading a token: Next token is token IDENTIFIER_T ()
@@ -2460,7 +2460,7 @@ Reducing stack by rule 12 (line 206):
 -> $$ = nterm statement_list ()
 Stack now 0 1 3 5 9 38
 Entering state 61
-Reducing stack by rule 3 (line 158):
+Reducing stack by rule 2 (line 154):
    $1 = token DECLARATIONS_T ()
    $2 = nterm declaration_block ()
    $3 = token CODE_T ()
@@ -2494,33 +2494,33 @@ Stack now 0 2 4
 Cleanup: popping token $end ()
 Cleanup: popping nterm program ()
 #include<stdio.h>
-/*Prog3*/
+/*Prog3_*/
 int _Hey_Brian_;
 int main() {
-int a;
-for (a = 1; _Hey_Brian_ =(1), (a-(13))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; a += _Hey_Brian_) {
-if (!((a == 7))) {
-printf("%d", a);
+int a_;
+for (a_ = 1; _Hey_Brian_ =(1), (a_-(13))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; a_ += _Hey_Brian_) {
+if (!((a_ == 7))) {
+printf("%d", a_);
 printf("\n");
 };
 };
-a = 0;
+a_ = 0;
 do {
-a = (a + 1);
-if (!(((a == 6) && (a != 8)))) {
-printf("%d", a);
+a_ = (a_ + 1);
+if (!(((a_ == 6) && (a_ != 8)))) {
+printf("%d", a_);
 printf("\n");
 };
-} while ((a < 14));
-a = 0;
-while ((a < 12)) {printf("%d", a);
-a = (a + 1);
+} while ((a_ < 14));
+a_ = 0;
+while ((a_ < 12)) {printf("%d", a_);
+a_ = (a_ + 1);
 };
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 Parse debug output for d.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 Starting parse
 Entering state 0
 Reading a token: Next token is token IDENTIFIER_T ()
@@ -3036,7 +3036,7 @@ Reducing stack by rule 12 (line 206):
 -> $$ = nterm statement_list ()
 Stack now 0 1 3 5 9 38
 Entering state 61
-Reducing stack by rule 3 (line 158):
+Reducing stack by rule 2 (line 154):
    $1 = token DECLARATIONS_T ()
    $2 = nterm declaration_block ()
    $3 = token CODE_T ()
@@ -3070,23 +3070,23 @@ Stack now 0 2 4
 Cleanup: popping token $end ()
 Cleanup: popping nterm program ()
 #include<stdio.h>
-/*Prog4D*/
+/*Prog4D_*/
 int _Hey_Brian_;
 int main() {
-double r3, r2, r1;
-r1 = -2.4;
-r2 = -34.989;
-r3 = ((r1 * r2) / 7.4);
-printf("%lf", r3);
+double r3_, r2_, r1_;
+r1_ = -2.4;
+r2_ = -34.989;
+r3_ = ((r1_ * r2_) / 7.4);
+printf("%lf", r3_);
 printf("\n");
-scanf(" %lf", &r1);
-r3 = (r1 + r3);
-printf("%lf", r3);
+scanf(" %lf", &r1_);
+r3_ = (r1_ + r3_);
+printf("%lf", r3_);
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 Parse debug output for e.spl
--- 6:18:26-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 Starting parse
 Entering state 0
 Reading a token: Next token is token IDENTIFIER_T ()
@@ -4219,7 +4219,7 @@ Reducing stack by rule 12 (line 206):
 -> $$ = nterm statement_list ()
 Stack now 0 1 3 5 9 38
 Entering state 61
-Reducing stack by rule 3 (line 158):
+Reducing stack by rule 2 (line 154):
    $1 = token DECLARATIONS_T ()
    $2 = nterm declaration_block ()
    $3 = token CODE_T ()
@@ -4253,30 +4253,30 @@ Stack now 0 2 4
 Cleanup: popping token $end ()
 Cleanup: popping nterm program ()
 #include<stdio.h>
-/*ProgV*/
+/*ProgV_*/
 int _Hey_Brian_;
 int main() {
-int i, integer;
-scanf(" %d", &integer);
-if (((integer <= 5) || (integer >= 12))) {
-printf("%d", integer);
+int i_, integer_;
+scanf(" %d", &integer_);
+if (((integer_ <= 5) || (integer_ >= 12))) {
+printf("%d", integer_);
 };
 printf("%d", ((36 - 1)));
 printf("\n");
-for (integer = -1; _Hey_Brian_ =(-1), (integer-(-5))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer += _Hey_Brian_) {
-printf("%d", integer);
+for (integer_ = -1; _Hey_Brian_ =(-1), (integer_-(-5))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer_ += _Hey_Brian_) {
+printf("%d", integer_);
 printf("\n");
 };
-i = -1;
-for (integer = ((i * i) * i); _Hey_Brian_ =(((((i * i) * i) * i) * i)), (integer-(((i * i) * (((((i + i) + i) + i) + i)))))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer += _Hey_Brian_) {
-printf("%d", integer);
+i_ = -1;
+for (integer_ = ((i_ * i_) * i_); _Hey_Brian_ =(((((i_ * i_) * i_) * i_) * i_)), (integer_-(((i_ * i_) * (((((i_ + i_) + i_) + i_) + i_)))))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer_ += _Hey_Brian_) {
+printf("%d", integer_);
 printf("\n");
 };
 }
 --14-11-2018-----------------------------------------------------
 Parse Tree output for a.spl
--- 6:18:26-----------------------------------------------------
-Program: ProgA
+-- 7:51:41-----------------------------------------------------
+Program: ProgA_
 Block
     Statement list
         Statement
@@ -4300,7 +4300,7 @@ Block
             Statement
                 Write statement
                     #include<stdio.h>
-/*ProgA*/
+/*ProgA_*/
 int _Hey_Brian_;
 int main() {
 printf("%c%c%c%c%c", 'h', 'e', 'l', 'l', 'o');
@@ -4308,19 +4308,19 @@ printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 Parse Tree output for b.spl
--- 6:18:26-----------------------------------------------------
-Program: ProgB
+-- 7:51:41-----------------------------------------------------
+Program: ProgB_
 Block
     Declaration
-        Identifier: b
-            Identifier: a
+        Identifier: b_
+            Identifier: a_
                 Type: Integer
             Declaration
-            Identifier: c
+            Identifier: c_
                 Type: Character
                 Declaration
-                Identifier: e
-                    Identifier: d
+                Identifier: e_
+                    Identifier: d_
                         Type: Real
                     Statement list
         Statement
@@ -4335,11 +4335,11 @@ Block
                             Comparison
                                 Tern
                                     Value
-                                        Identifier: a
+                                        Identifier: a_
                                             Greater than
                                     Tern
                                     Value
-                                        Identifier: b
+                                        Identifier: b_
                                             Statement list
                             Statement
                                 Write statement
@@ -4360,18 +4360,18 @@ Block
                             Read statement
                                 Statement list
                             Statement
-                                Assignment statement: e
+                                Assignment statement: e_
                                     Tern
                                         Multiply
                                             Value
-                                                Identifier: d
+                                                Identifier: d_
                                                     Constant
                                                 Positive real constant: -2.3
                                                     Statement list
                                 Statement
                                     Write statement
                                         Output list
-                                            Identifier: e
+                                            Identifier: e_
                                                 Statement list
                                     Statement
                                         Write statement
@@ -4382,40 +4382,40 @@ Block
                                             Statement
                                                 Write statement
                                                     Output list
-                                                        Identifier: c
+                                                        Identifier: c_
                                                             Statement list
                                                 Statement
                                                     Write statement
                                                         #include<stdio.h>
-/*ProgB*/
+/*ProgB_*/
 int _Hey_Brian_;
 int main() {
-int b, a;
-char c;
-double e, d;
-scanf(" %d", &a);
-scanf(" %d", &b);
-if ((a > b)) {
+int b_, a_;
+char c_;
+double e_, d_;
+scanf(" %d", &a_);
+scanf(" %d", &b_);
+if ((a_ > b_)) {
 printf("%c", 'A');
 } else {
 printf("%c", 'B');
 };
 printf("\n");
-scanf(" %lf", &d);
-e = (d * 2.3);
-printf("%lf", e);
+scanf(" %lf", &d_);
+e_ = (d_ * 2.3);
+printf("%lf", e_);
 printf("\n");
-scanf(" %c", &c);
-printf("%c", c);
+scanf(" %c", &c_);
+printf("%c", c_);
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 Parse Tree output for c.spl
--- 6:18:26-----------------------------------------------------
-Program: Prog3
+-- 7:51:41-----------------------------------------------------
+Program: Prog3_
 Block
     Declaration
-        Identifier: a
+        Identifier: a_
             Type: Integer
             Statement list
         Statement
@@ -4441,7 +4441,7 @@ Block
                                     Comparison
                                         Tern
                                             Value
-                                                Identifier: a
+                                                Identifier: a_
                                                     Equal
                                             Tern
                                             Value
@@ -4451,13 +4451,13 @@ Block
                                 Statement
                                     Write statement
                                         Output list
-                                            Identifier: a
+                                            Identifier: a_
                                                 Statement list
                                     Statement
                                         Write statement
                                             Statement list
             Statement
-                Assignment statement: a
+                Assignment statement: a_
                     Tern
                         Value
                             Constant
@@ -4467,11 +4467,11 @@ Block
                     Do statement
                         Statement list
                             Statement
-                                Assignment statement: a
+                                Assignment statement: a_
                                     Add
                                         Tern
                                             Value
-                                                Identifier: a
+                                                Identifier: a_
                                                     Value
                                             Constant
                                                 Positive integer constant: -1
@@ -4483,7 +4483,7 @@ Block
                                                 Comparison
                                                     Tern
                                                         Value
-                                                            Identifier: a
+                                                            Identifier: a_
                                                                 Equal
                                                         Tern
                                                         Value
@@ -4493,7 +4493,7 @@ Block
                                                     Comparison
                                                         Tern
                                                             Value
-                                                                Identifier: a
+                                                                Identifier: a_
                                                                     Not equal
                                                             Tern
                                                             Value
@@ -4503,7 +4503,7 @@ Block
                                             Statement
                                                 Write statement
                                                     Output list
-                                                        Identifier: a
+                                                        Identifier: a_
                                                             Statement list
                                                 Statement
                                                     Write statement
@@ -4511,7 +4511,7 @@ Block
                             Comparison
                                 Tern
                                     Value
-                                        Identifier: a
+                                        Identifier: a_
                                             Less than
                                     Tern
                                     Value
@@ -4519,7 +4519,7 @@ Block
                                             Positive integer constant: -14
                                                 Statement list
                     Statement
-                        Assignment statement: a
+                        Assignment statement: a_
                             Tern
                                 Value
                                     Constant
@@ -4531,7 +4531,7 @@ Block
                                     Comparison
                                         Tern
                                             Value
-                                                Identifier: a
+                                                Identifier: a_
                                                     Less than
                                             Tern
                                             Value
@@ -4541,14 +4541,14 @@ Block
                                     Statement
                                         Write statement
                                             Output list
-                                                Identifier: a
+                                                Identifier: a_
                                                     Statement list
                                         Statement
-                                            Assignment statement: a
+                                            Assignment statement: a_
                                                 Add
                                                     Tern
                                                         Value
-                                                            Identifier: a
+                                                            Identifier: a_
                                                                 Value
                                                         Constant
                                                             Positive integer constant: -1
@@ -4556,70 +4556,70 @@ Block
                             Statement
                                 Write statement
                                     #include<stdio.h>
-/*Prog3*/
+/*Prog3_*/
 int _Hey_Brian_;
 int main() {
-int a;
-for (a = 1; _Hey_Brian_ =(1), (a-(13))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; a += _Hey_Brian_) {
-if (!((a == 7))) {
-printf("%d", a);
+int a_;
+for (a_ = 1; _Hey_Brian_ =(1), (a_-(13))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; a_ += _Hey_Brian_) {
+if (!((a_ == 7))) {
+printf("%d", a_);
 printf("\n");
 };
 };
-a = 0;
+a_ = 0;
 do {
-a = (a + 1);
-if (!(((a == 6) && (a != 8)))) {
-printf("%d", a);
+a_ = (a_ + 1);
+if (!(((a_ == 6) && (a_ != 8)))) {
+printf("%d", a_);
 printf("\n");
 };
-} while ((a < 14));
-a = 0;
-while ((a < 12)) {printf("%d", a);
-a = (a + 1);
+} while ((a_ < 14));
+a_ = 0;
+while ((a_ < 12)) {printf("%d", a_);
+a_ = (a_ + 1);
 };
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 Parse Tree output for d.spl
--- 6:18:26-----------------------------------------------------
-Program: Prog4D
+-- 7:51:41-----------------------------------------------------
+Program: Prog4D_
 Block
     Declaration
-        Identifier: r3
-            Identifier: r2
-                Identifier: r1
+        Identifier: r3_
+            Identifier: r2_
+                Identifier: r1_
                     Type: Real
             Statement list
         Statement
-            Assignment statement: r1
+            Assignment statement: r1_
                 Tern
                     Value
                         Constant
                             Negative real constant: -2.4
                                 Statement list
             Statement
-                Assignment statement: r2
+                Assignment statement: r2_
                     Tern
                         Value
                             Constant
                                 Negative real constant: -34.989
                                     Statement list
                 Statement
-                    Assignment statement: r3
+                    Assignment statement: r3_
                         Tern
                             Divide
                                 Multiply
                                     Value
-                                        Identifier: r1
-                                            Identifier: r2
+                                        Identifier: r1_
+                                            Identifier: r2_
                                         Constant
                                     Positive real constant: -7.4
                                         Statement list
                     Statement
                         Write statement
                             Output list
-                                Identifier: r3
+                                Identifier: r3_
                                     Statement list
                         Statement
                             Write statement
@@ -4628,44 +4628,44 @@ Block
                                 Read statement
                                     Statement list
                                 Statement
-                                    Assignment statement: r3
+                                    Assignment statement: r3_
                                         Add
                                             Tern
                                                 Value
-                                                    Identifier: r1
+                                                    Identifier: r1_
                                                         Value
-                                                Identifier: r3
+                                                Identifier: r3_
                                                     Statement list
                                     Statement
                                         Write statement
                                             Output list
-                                                Identifier: r3
+                                                Identifier: r3_
                                                     Statement list
                                         Statement
                                             Write statement
                                                 #include<stdio.h>
-/*Prog4D*/
+/*Prog4D_*/
 int _Hey_Brian_;
 int main() {
-double r3, r2, r1;
-r1 = -2.4;
-r2 = -34.989;
-r3 = ((r1 * r2) / 7.4);
-printf("%lf", r3);
+double r3_, r2_, r1_;
+r1_ = -2.4;
+r2_ = -34.989;
+r3_ = ((r1_ * r2_) / 7.4);
+printf("%lf", r3_);
 printf("\n");
-scanf(" %lf", &r1);
-r3 = (r1 + r3);
-printf("%lf", r3);
+scanf(" %lf", &r1_);
+r3_ = (r1_ + r3_);
+printf("%lf", r3_);
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 Parse Tree output for e.spl
--- 6:18:26-----------------------------------------------------
-Program: ProgV
+-- 7:51:41-----------------------------------------------------
+Program: ProgV_
 Block
     Declaration
-        Identifier: i
-            Identifier: integer
+        Identifier: i_
+            Identifier: integer_
                 Type: Integer
             Statement list
         Statement
@@ -4677,7 +4677,7 @@ Block
                         Comparison
                             Tern
                                 Value
-                                    Identifier: integer
+                                    Identifier: integer_
                                         Less or equal
                                 Tern
                                 Value
@@ -4687,7 +4687,7 @@ Block
                             Comparison
                                 Tern
                                     Value
-                                        Identifier: integer
+                                        Identifier: integer_
                                             Greater than or equal
                                     Tern
                                     Value
@@ -4697,7 +4697,7 @@ Block
                         Statement
                             Write statement
                                 Output list
-                                    Identifier: integer
+                                    Identifier: integer_
                                         Statement list
                 Statement
                     Write statement
@@ -4734,13 +4734,13 @@ Block
                                     Statement
                                         Write statement
                                             Output list
-                                                Identifier: integer
+                                                Identifier: integer_
                                                     Statement list
                                         Statement
                                             Write statement
                                                 Statement list
                             Statement
-                                Assignment statement: i
+                                Assignment statement: i_
                                     Tern
                                         Value
                                             Constant
@@ -4753,26 +4753,26 @@ Block
                                                 Multiply
                                                     Multiply
                                                         Value
-                                                            Identifier: i
-                                                                Identifier: i
-                                                            Identifier: i
+                                                            Identifier: i_
+                                                                Identifier: i_
+                                                            Identifier: i_
                                                         Tern
                                                 Multiply
                                                     Multiply
                                                         Multiply
                                                             Multiply
                                                                 Value
-                                                                    Identifier: i
-                                                                        Identifier: i
-                                                                    Identifier: i
-                                                                Identifier: i
-                                                            Identifier: i
+                                                                    Identifier: i_
+                                                                        Identifier: i_
+                                                                    Identifier: i_
+                                                                Identifier: i_
+                                                            Identifier: i_
                                                         Tern
                                                 Multiply
                                                     Multiply
                                                         Value
-                                                            Identifier: i
-                                                                Identifier: i
+                                                            Identifier: i_
+                                                                Identifier: i_
                                                             Expression
                                                         Add
                                                             Add
@@ -4780,49 +4780,49 @@ Block
                                                                     Add
                                                                         Tern
                                                                             Value
-                                                                                Identifier: i
+                                                                                Identifier: i_
                                                                                     Value
-                                                                            Identifier: i
+                                                                            Identifier: i_
                                                                                 Value
-                                                                        Identifier: i
+                                                                        Identifier: i_
                                                                             Value
-                                                                    Identifier: i
+                                                                    Identifier: i_
                                                                         Value
-                                                                Identifier: i
+                                                                Identifier: i_
                                                                     Statement list
                                             Statement
                                                 Write statement
                                                     Output list
-                                                        Identifier: integer
+                                                        Identifier: integer_
                                                             Statement list
                                                 Statement
                                                     Write statement
                                                         #include<stdio.h>
-/*ProgV*/
+/*ProgV_*/
 int _Hey_Brian_;
 int main() {
-int i, integer;
-scanf(" %d", &integer);
-if (((integer <= 5) || (integer >= 12))) {
-printf("%d", integer);
+int i_, integer_;
+scanf(" %d", &integer_);
+if (((integer_ <= 5) || (integer_ >= 12))) {
+printf("%d", integer_);
 };
 printf("%d", ((36 - 1)));
 printf("\n");
-for (integer = -1; _Hey_Brian_ =(-1), (integer-(-5))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer += _Hey_Brian_) {
-printf("%d", integer);
+for (integer_ = -1; _Hey_Brian_ =(-1), (integer_-(-5))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer_ += _Hey_Brian_) {
+printf("%d", integer_);
 printf("\n");
 };
-i = -1;
-for (integer = ((i * i) * i); _Hey_Brian_ =(((((i * i) * i) * i) * i)), (integer-(((i * i) * (((((i + i) + i) + i) + i)))))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer += _Hey_Brian_) {
-printf("%d", integer);
+i_ = -1;
+for (integer_ = ((i_ * i_) * i_); _Hey_Brian_ =(((((i_ * i_) * i_) * i_) * i_)), (integer_-(((i_ * i_) * (((((i_ + i_) + i_) + i_) + i_)))))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer_ += _Hey_Brian_) {
+printf("%d", integer_);
 printf("\n");
 };
 }
 --14-11-2018-----------------------------------------------------
 C Code output for a.spl
--- 6:18:27-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 #include<stdio.h>
-/*ProgA*/
+/*ProgA_*/
 int _Hey_Brian_;
 int main() {
 printf("%c%c%c%c%c", 'h', 'e', 'l', 'l', 'o');
@@ -4830,113 +4830,113 @@ printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 C Code output for b.spl
--- 6:18:27-----------------------------------------------------
+-- 7:51:41-----------------------------------------------------
 #include<stdio.h>
-/*ProgB*/
+/*ProgB_*/
 int _Hey_Brian_;
 int main() {
-int b, a;
-char c;
-double e, d;
-scanf(" %d", &a);
-scanf(" %d", &b);
-if ((a > b)) {
+int b_, a_;
+char c_;
+double e_, d_;
+scanf(" %d", &a_);
+scanf(" %d", &b_);
+if ((a_ > b_)) {
 printf("%c", 'A');
 } else {
 printf("%c", 'B');
 };
 printf("\n");
-scanf(" %lf", &d);
-e = (d * 2.3);
-printf("%lf", e);
+scanf(" %lf", &d_);
+e_ = (d_ * 2.3);
+printf("%lf", e_);
 printf("\n");
-scanf(" %c", &c);
-printf("%c", c);
+scanf(" %c", &c_);
+printf("%c", c_);
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 C Code output for c.spl
--- 6:18:27-----------------------------------------------------
+-- 7:51:42-----------------------------------------------------
 #include<stdio.h>
-/*Prog3*/
+/*Prog3_*/
 int _Hey_Brian_;
 int main() {
-int a;
-for (a = 1; _Hey_Brian_ =(1), (a-(13))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; a += _Hey_Brian_) {
-if (!((a == 7))) {
-printf("%d", a);
+int a_;
+for (a_ = 1; _Hey_Brian_ =(1), (a_-(13))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; a_ += _Hey_Brian_) {
+if (!((a_ == 7))) {
+printf("%d", a_);
 printf("\n");
 };
 };
-a = 0;
+a_ = 0;
 do {
-a = (a + 1);
-if (!(((a == 6) && (a != 8)))) {
-printf("%d", a);
+a_ = (a_ + 1);
+if (!(((a_ == 6) && (a_ != 8)))) {
+printf("%d", a_);
 printf("\n");
 };
-} while ((a < 14));
-a = 0;
-while ((a < 12)) {printf("%d", a);
-a = (a + 1);
+} while ((a_ < 14));
+a_ = 0;
+while ((a_ < 12)) {printf("%d", a_);
+a_ = (a_ + 1);
 };
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 C Code output for d.spl
--- 6:18:27-----------------------------------------------------
+-- 7:51:42-----------------------------------------------------
 #include<stdio.h>
-/*Prog4D*/
+/*Prog4D_*/
 int _Hey_Brian_;
 int main() {
-double r3, r2, r1;
-r1 = -2.4;
-r2 = -34.989;
-r3 = ((r1 * r2) / 7.4);
-printf("%lf", r3);
+double r3_, r2_, r1_;
+r1_ = -2.4;
+r2_ = -34.989;
+r3_ = ((r1_ * r2_) / 7.4);
+printf("%lf", r3_);
 printf("\n");
-scanf(" %lf", &r1);
-r3 = (r1 + r3);
-printf("%lf", r3);
+scanf(" %lf", &r1_);
+r3_ = (r1_ + r3_);
+printf("%lf", r3_);
 printf("\n");
 }
 --14-11-2018-----------------------------------------------------
 C Code output for e.spl
--- 6:18:27-----------------------------------------------------
+-- 7:51:42-----------------------------------------------------
 #include<stdio.h>
-/*ProgV*/
+/*ProgV_*/
 int _Hey_Brian_;
 int main() {
-int i, integer;
-scanf(" %d", &integer);
-if (((integer <= 5) || (integer >= 12))) {
-printf("%d", integer);
+int i_, integer_;
+scanf(" %d", &integer_);
+if (((integer_ <= 5) || (integer_ >= 12))) {
+printf("%d", integer_);
 };
 printf("%d", ((36 - 1)));
 printf("\n");
-for (integer = -1; _Hey_Brian_ =(-1), (integer-(-5))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer += _Hey_Brian_) {
-printf("%d", integer);
+for (integer_ = -1; _Hey_Brian_ =(-1), (integer_-(-5))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer_ += _Hey_Brian_) {
+printf("%d", integer_);
 printf("\n");
 };
-i = -1;
-for (integer = ((i * i) * i); _Hey_Brian_ =(((((i * i) * i) * i) * i)), (integer-(((i * i) * (((((i + i) + i) + i) + i)))))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer += _Hey_Brian_) {
-printf("%d", integer);
+i_ = -1;
+for (integer_ = ((i_ * i_) * i_); _Hey_Brian_ =(((((i_ * i_) * i_) * i_) * i_)), (integer_-(((i_ * i_) * (((((i_ + i_) + i_) + i_) + i_)))))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; integer_ += _Hey_Brian_) {
+printf("%d", integer_);
 printf("\n");
 };
 }
 --14-11-2018-----------------------------------------------------
 Correct Execution output for a.spl:
--- 6:18:27-----------------------------------------------------
+-- 7:51:42-----------------------------------------------------
 hello
 --14-11-2018-----------------------------------------------------
 Program B needs a visual inspection of floating point numbers - B 7.82 x
--- 6:18:27-----------------------------------------------------
+-- 7:51:42-----------------------------------------------------
 B
 7.820000
 x
 --14-11-2018-----------------------------------------------------
 Correct Alternate Execution output for c.spl
--- 6:18:27-----------------------------------------------------
+-- 7:51:42-----------------------------------------------------
 1
 2
 3
@@ -4965,12 +4965,12 @@ Correct Alternate Execution output for c.spl
 01234567891011
 --14-11-2018-----------------------------------------------------
 Program D needs a visual inspection of floating point numbers 11.35 17.15
--- 6:18:27-----------------------------------------------------
+-- 7:51:42-----------------------------------------------------
 11.347784
 17.147784
 --14-11-2018-----------------------------------------------------
 Correct Execution output for e.spl
--- 6:18:27-----------------------------------------------------
+-- 7:51:42-----------------------------------------------------
 1234535
 -1
 -2
