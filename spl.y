@@ -492,152 +492,6 @@ TERNARY_TREE create_node(int ival, int case_identifier, TERNARY_TREE p1, TERNARY
     return t;
 }
 
-/*
-
-void printTree(TERNARY_TREE tree, int depth) {
-    if (tree != NULL) {
-        int i;
-        for (i = 0; i < depth; ++i) {
-            printf(" ");
-        }
-        SYMTABNODEPTR node = symbolTable_get_node_for_index(symbol_table, tree->item);
-        switch(tree->nodeIdentifier) {
-            case(PROGRAM):
-                printf("Program: %s\n",node->symbol);
-            break;
-            case(BLOCK):
-                printf("Block\n");
-            break;
-            case(DECLARATION):
-                printf("Declaration\n");
-            break;
-            case(IDENTIFIER):
-                printf("Identifier: %s\n", node->symbol);
-            break;
-            case(CHARACTER):
-                printf("Character\n");
-            break;
-            case(INTEGER):
-                printf("Integer\n");
-            break;
-            case(REAL):
-                printf("Real\n");
-            break;
-            case(STATEMENT_LIST):
-                printf("Statement list\n");
-            break;
-            case(ASSIGNMENT_STATEMENT):
-                printf("Assignment statement: %s\n", node->symbol);
-            break;
-            case(IF_STATEMENT):
-                printf("If statement\n");
-            break;
-            case(DO_STATEMENT):
-                printf("Do statement\n");
-            break;
-            case(WHILE_STATEMENT):
-                printf("While statement\n");
-            break;
-            case(FOR_STATEMENT):
-                printf("For statement\n");
-            break;
-            case(FOR_LOOP):
-                printf("For loop: %s\n", node->symbol);
-            break;
-            case(WRITE_STATEMENT):
-                printf("Write statement\n");
-            break;
-            case(READ_STATEMENT):
-                printf("Read statement %s\n", node->symbol);
-            break;
-            case(OUTPUT_LIST):
-                printf("Output list\n");
-            break;
-            case(COMPARISION):
-                printf("Comparison\n");
-            break;
-            case(NOT):
-                printf("Not\n");
-            break;
-            case(CONDITONAL):
-                printf("Conditonal\n");
-            break;
-            case(AND):
-                printf("And\n");
-            break;
-            case(OR):
-                printf("Or\n");
-            break;
-            case(COMPARITOR):
-                printf("Comparitor\n");
-            break;
-            case(EQUAL):
-                printf("Equal\n");
-            break;
-            case(NOT_EQUAL):
-                printf("Not Equal\n");
-            break;
-            case(LESS_THAN):
-                printf("Less than\n");
-            break;
-            case(GREATER_THAN):
-                printf("Greater than\n");
-            break;
-            case(LESS_OR_EQUAL):
-                printf("Less or equal\n");
-            break;
-            case(GREATER_OR_EQUAL):
-                printf("Greater or equal\n");
-            break;
-            case(ADD):
-                printf("Add\n");
-            break;
-            case(SUBTRACT):
-                printf("Subtract\n");
-            break;
-            case(TERM):
-                printf("Term\n");
-            break;
-            case(MULTIPLY):
-                printf("Multiply\n");
-            break;
-            case(DIVIDE):
-                printf("Divide\n");
-            break;
-            case(VALUE):
-                printf("Value\n");
-            break;
-            case(CONSTANT):
-                printf("Constant\n");
-            break;
-            case(EXPRESSION):
-                printf("Expression\n");
-            break;
-            case(NEGATIVE_REAL_CONSTANT):
-                printf("Negative real constant: -%s\n", node->symbol);
-            break;
-            case(POSITIVE_REAL_CONSTANT):
-                printf("Positive real constant: %s\n", node->symbol);
-            break;
-            case(NEGATIVE_INTEGER_CONSTANT):
-                printf("Negative integer constant: -%s\n", node->symbol);
-            break;
-            case(POSITIVE_INTEGER_CONSTANT):
-                printf("Positive integer constant: %s\n", node->symbol);
-            break;
-            case(CHARACTER_CONSTANT):
-                printf("Character constant: %s\n", node->symbol);
-            break;
-
-        }
-    printTree(tree->first, depth+2);
-    printTree(tree->second, depth+2);
-    printTree(tree->third, depth+2);
-    }
-}
-
-*/
-
 int declareType(TERNARY_TREE tree) {
     if (!tree) {
         return;
@@ -670,11 +524,41 @@ void declareIdentifiers(TERNARY_TREE tree, int t) {
     }
 }
 
+int getType(TERNARY_TREE tree) {
+    if (!tree) {
+        return NOTHING;
+    }
+    int left, right;
+    SYMTABNODEPTR node = symbolTable_get_node_for_index(symbol_table, tree->item);
+    switch (tree->nodeIdentifier) {
+        case (ADD):
+        case (SUBTRACT):
+        case (TERM):
+        case (MULTIPLY):
+        case (DIVIDE):
+        case (VALUE):
+        case (CONSTANT):
+            left = getType(tree->first);
+            right = getType(tree->second);
+            return (left > right) ? left : right;
+        break;
+        case (IDENTIFIER):
+        case (NEGATIVE_REAL_CONSTANT):
+        case (POSITIVE_REAL_CONSTANT):
+        case (NEGATIVE_INTEGER_CONSTANT):
+        case (POSITIVE_INTEGER_CONSTANT):
+        case (CHARACTER_CONSTANT):
+            return node->type;
+        break;
+    }
+}
+
 void genPrintFormat(TERNARY_TREE tree) {
     if (!tree) {
         return;
     }
     SYMTABNODEPTR node = symbolTable_get_node_for_index(symbol_table, tree->item);
+    int type;
     switch(tree->nodeIdentifier) {
         case (OUTPUT_LIST):
            genPrintFormat(tree->first);
@@ -686,7 +570,7 @@ void genPrintFormat(TERNARY_TREE tree) {
             if (node->type == CHARACTER) {
                 printf("%%c");
             } else if (node->type == REAL) {
-                printf("%%f");
+                printf("%%lf");
             } else if (node->type == INTEGER) {
                 printf("%%d");
             }
@@ -710,13 +594,19 @@ void genPrintFormat(TERNARY_TREE tree) {
             printf("%%c");
         break;
         case (EXPRESSION):
+            type = getType(tree->first);
+            if (type == CHARACTER) {
+                printf("%%c");
+            } else if (type == REAL) {
+                printf("%%lf");
+            } else if (type == INTEGER) {
+                printf("%%d");
+            }
         break;
     }
 }
 
-void genOutputList(TERNARY_TREE tree) {
-    
-}
+
 
 void genCode(TERNARY_TREE tree) {
     if (!tree) {
@@ -766,7 +656,7 @@ void genCode(TERNARY_TREE tree) {
         case (DO_STATEMENT):
             printf("do {\n");
             genCode(tree->first);
-            printf("} while (\n");
+            printf("} while (");
             genCode(tree->second);
             printf(")");
         break;
@@ -925,11 +815,11 @@ void genCode(TERNARY_TREE tree) {
         case (READ_STATEMENT):
             printf("scanf(\"");
             if (node->type == CHARACTER) {
-                printf("%%*c%%c");
+                printf(" %%c");
             } else if (node->type == REAL) {
-                printf("%%lf");
+                printf(" %%lf");
             } else if (node->type == INTEGER) {
-                printf("%%d");
+                printf(" %%d");
             }
             printf("\", &%s)", node->symbol);
         break;
