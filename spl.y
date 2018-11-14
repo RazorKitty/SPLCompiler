@@ -144,7 +144,7 @@ program                 : IDENTIFIER_T COLON_T block ENDP_T IDENTIFIER_T PERIOD_
                             if ($1 == $5)
                                 ParseTree = create_node($1, PROGRAM, $3, NULL, NULL);
                                 #ifdef DEBUG
-                                /*printTree(ParseTree, 0);*/
+                                printTree(ParseTree, 0);
                                 #endif
                                 genCode(ParseTree);
                         }
@@ -616,7 +616,7 @@ void genCode(TERNARY_TREE tree) {
     int t;
     switch (tree->nodeIdentifier) {
         case (PROGRAM):
-            printf("#include<stdio.h>\n/*%s*/\nint _by;\nint main() {\n", node->symbol);
+            printf("#include<stdio.h>\n/*%s*/\nint _Hey_Brian_;\nint main() {\n", node->symbol);
             genCode(tree->first);
             printf("}\n");
         break;
@@ -677,11 +677,11 @@ void genCode(TERNARY_TREE tree) {
         case (FOR_LOOP):
             printf("%s = ", node->symbol);
             genCode(tree->first);
-            printf("; _by =(");
+            printf("; _Hey_Brian_ =(");
             genCode(tree->second);
             printf("), (%s-(", node->symbol);
             genCode(tree->third);
-            printf("))*((_by > 0) - (_by < 0)) <= 0; %s += _by", node->symbol, node->symbol);
+            printf("))*((_Hey_Brian_ > 0) - (_Hey_Brian_ < 0)) <= 0; %s += _Hey_Brian_", node->symbol, node->symbol);
         break;
         case (NOT):
             printf("!");
@@ -825,6 +825,149 @@ void genCode(TERNARY_TREE tree) {
             printf("\", &%s)", node->symbol);
         break;
     }
+}
+
+void printTree(TERNARY_TREE tree, int depth) {
+    int i;
+    if (!tree) {
+        return;
+    }
+    SYMTABNODEPTR node = symbolTable_get_node_for_index(symbol_table, tree->item);
+    switch(tree->nodeIdentifier) {
+        case (PROGRAM):
+            printf("Program: %s\n", node->symbol);
+        break;
+        case (BLOCK):
+            printf("Block\n");
+        break;
+        case (DECLARATION):
+            printf("Declaration\n");
+        break;
+        case (IDENTIFIER):
+            printf("Identifier: %s\n", node->symbol);
+        break;
+        case (CHARACTER):
+            printf("Type: Character\n");
+        break;
+        case (INTEGER):
+            printf("Type: Integer\n");
+        break;
+        case (REAL):
+            printf("Type: Real\n");
+        break;
+        case (STATEMENT_LIST):
+            printf("Statement list\n");
+        break;
+        case (STATEMENT):
+            printf("Statement\n");
+        break;
+        case (ASSIGNMENT_STATEMENT):
+            printf("Assignment statement: %s\n", node->symbol);
+        break;
+        case (IF_STATEMENT):
+            printf("If statement\n");
+        break;
+        case (DO_STATEMENT):
+            printf("Do statement\n");
+        break;
+        case (WHILE_STATEMENT):
+            printf("While statement\n");
+        break;
+        case (FOR_STATEMENT):
+            printf("For statement\n");
+        break;
+        case (FOR_LOOP):
+            printf("For loop\n");
+        break;
+        case (WRITE_STATEMENT):
+            printf("Write statement\n");
+        break;
+        case (READ_STATEMENT):
+            printf("Read statement\n");
+        break;
+        case (OUTPUT_LIST):
+            printf("Output list\n");
+        break;
+        case (NOT):
+            printf("Conditional not\n");
+        break;
+        case (CONDITONAL):
+            printf("Conditional\n");
+        break;
+        case (AND):
+            printf("Condtional and\n");
+        break;
+        case (OR):
+            printf("Condtional or\n");
+        break;
+        case (COMPARISION):
+            printf("Comparison\n");
+        break;
+        case (EQUAL):
+            printf("Equal\n");
+        break;
+        case (NOT_EQUAL):
+            printf("Not equal\n");
+        break;
+        case (LESS_THAN):
+            printf("Less than\n");
+        break;
+        case (GREATER_THAN):
+            printf("Greater than\n");
+        break;
+        case (LESS_OR_EQUAL):
+            printf("Less or equal\n");
+        break;
+        case (GREATER_OR_EQUAL):
+            printf("Greater than or equal\n");
+        break;
+        case (ADD):
+            printf("Add\n");
+        break;
+        case (SUBTRACT):
+            printf("Subtract\n");
+        break;
+        case (TERM):
+            printf("Tern\n");
+        break;
+        case (MULTIPLY):
+            printf("Multiply\n");
+        break;
+        case (DIVIDE):
+            printf("Divide\n");
+        break;
+        case (VALUE):
+            printf("Value\n");
+        break;
+        case (CONSTANT):
+            printf("Constant\n");
+        break;
+        case (EXPRESSION):
+            printf("Expression\n");
+        break;
+        case (NEGATIVE_REAL_CONSTANT):
+            printf("Negative real constant: -%s\n", node->symbol);
+        break;
+        case (POSITIVE_REAL_CONSTANT):
+            printf("Positive real constant: -%s\n", node->symbol);
+        break;
+        case (NEGATIVE_INTEGER_CONSTANT):
+            printf("Negative integer constant: -%s\n", node->symbol);
+        break;
+        case (POSITIVE_INTEGER_CONSTANT):
+            printf("Positive integer constant: -%s\n", node->symbol);
+        break;
+        case (CHARACTER_CONSTANT):
+            printf("Character constant: -%s\n", node->symbol);
+        break;
+    }
+    for (i = 0; i < depth; ++i) {
+        printf(" ");
+    }
+    depth+=4;
+    printTree(tree->first, depth);
+    printTree(tree->second, depth);
+    printTree(tree->third, depth);
 }
 
 #include "lex.yy.c"
